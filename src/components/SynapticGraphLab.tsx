@@ -129,7 +129,7 @@ export const SynapticGraphLab: React.FC<SynapticGraphLabProps> = ({
             </h2>
           </div>
           <p className="text-[11px] sm:text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed font-mono">
-            Route the bio-electric pulse across the 16 cortex nodes from Prefrontal Cortex (1) to Archon Core (16). Balance node impedances (<code className="text-red-400 font-bold">Total ≤ 90 Ω</code>) and satisfy Hamiltonian relay sequence to extract Key Shard Delta.
+            Route the bio-electric pulse across the neural cortex nodes from Node 1 to Archon Core (Node 16). Balance pathway impedances to avoid tripping the circuit breaker and extract Key Shard Delta.
           </p>
         </div>
 

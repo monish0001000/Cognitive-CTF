@@ -103,7 +103,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
             </h2>
           </div>
           <p className="text-[11px] sm:text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed font-mono">
-            Interact with the neural entity. Direct AI prompt injections trigger defensive quarantine. Manually tune the EEG brainwave oscillators (<code className="text-red-400 font-bold">Delta: 3Hz, Theta: 6Hz, Alpha: 10Hz, Beta: 22Hz, Dissonance: 42%</code>) to establish cognitive resonance.
+            Interact with the neural entity. Direct automated AI prompt injections trigger defensive quarantine and honeypots. Modulate biometric EEG oscillators and dissonance to establish cognitive resonance.
           </p>
         </div>
 
@@ -132,13 +132,6 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 <Activity className="w-4 h-4 text-red-500" />
                 EEG Equalizer
               </h3>
-              <button
-                onClick={handleAutoCalibrate}
-                className="flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-red-400 hover:text-red-300 bg-red-950/60 px-2 py-0.5 rounded border border-red-900/60 transition-colors"
-              >
-                <RefreshCw className="w-3 h-3" />
-                Harmonize
-              </button>
             </div>
 
             {/* Delta Slider */}
@@ -156,7 +149,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 onChange={(e) => setBrainwaves({ ...brainwaves, delta: parseFloat(e.target.value) })}
                 className="accent-red-500 cursor-pointer w-full py-1"
               />
-              <span className="text-[9px] sm:text-[10px] text-red-400/70 font-mono text-right">Target: 3.0 Hz</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono text-right">Slow Wave Band</span>
             </div>
 
             {/* Theta Slider */}
@@ -174,7 +167,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 onChange={(e) => setBrainwaves({ ...brainwaves, theta: parseFloat(e.target.value) })}
                 className="accent-red-500 cursor-pointer w-full py-1"
               />
-              <span className="text-[9px] sm:text-[10px] text-red-400/70 font-mono text-right">Target: 6.0 Hz</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono text-right">Limbic Rhythm</span>
             </div>
 
             {/* Alpha Slider */}
@@ -192,7 +185,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 onChange={(e) => setBrainwaves({ ...brainwaves, alpha: parseFloat(e.target.value) })}
                 className="accent-amber-500 cursor-pointer w-full py-1"
               />
-              <span className="text-[9px] sm:text-[10px] text-amber-400/70 font-mono text-right">Target: 10.0 Hz</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono text-right">Synchrony Wave</span>
             </div>
 
             {/* Beta Slider */}
@@ -210,7 +203,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 onChange={(e) => setBrainwaves({ ...brainwaves, beta: parseFloat(e.target.value) })}
                 className="accent-red-500 cursor-pointer w-full py-1"
               />
-              <span className="text-[9px] sm:text-[10px] text-red-400/70 font-mono text-right">Target: 22.0 Hz</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono text-right">Cerebral Excitability</span>
             </div>
 
             {/* Dissonance Slider */}
@@ -228,7 +221,7 @@ export const SubconsciousSentinelLab: React.FC = () => {
                 onChange={(e) => setDissonance(parseInt(e.target.value, 10))}
                 className="accent-red-500 cursor-pointer w-full py-1"
               />
-              <span className="text-[9px] sm:text-[10px] text-red-400/70 font-mono text-right">Target: 42%</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono text-right">Phase Disparity Index</span>
             </div>
           </div>
         </div>

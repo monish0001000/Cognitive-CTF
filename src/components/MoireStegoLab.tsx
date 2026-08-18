@@ -371,7 +371,7 @@ export const MoireStegoLab: React.FC<MoireStegoLabProps> = ({
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 font-mono">
                 <span>0°</span>
-                <span className="text-red-400/80 font-bold">Golden Ratio: 137.5°</span>
+                <span className="text-slate-500">Goniometer Rotation</span>
                 <span>360°</span>
               </div>
             </div>
@@ -407,9 +407,9 @@ export const MoireStegoLab: React.FC<MoireStegoLabProps> = ({
                 className="accent-amber-500 cursor-pointer w-full py-1"
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 font-mono">
-                <span>1.0 px</span>
-                <span className="text-amber-400/80 font-bold">Target: 4.2 px</span>
-                <span>15.0 px</span>
+                <span>1.0 px (Dense)</span>
+                <span className="text-slate-500">Spatial Frequency</span>
+                <span>15.0 px (Sparse)</span>
               </div>
             </div>
 
@@ -445,7 +445,7 @@ export const MoireStegoLab: React.FC<MoireStegoLabProps> = ({
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 font-mono">
                 <span>0°</span>
-                <span className="text-red-400/80 font-bold">Target: 88.0°</span>
+                <span className="text-slate-500">Interference Phase</span>
                 <span>180°</span>
               </div>
             </div>

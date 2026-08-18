@@ -43,22 +43,22 @@ export const IncidentBriefingModal: React.FC<IncidentBriefingModalProps> = ({ is
           </div>
 
           <div className="space-y-2">
-            <h4 className="text-xs sm:text-sm font-bold text-red-400">Forensic Vectors:</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-red-400">Forensic Vectors to Investigate:</h4>
             <ul className="list-disc list-inside space-y-1.5 text-slate-300">
               <li>
-                <span className="font-bold text-red-200">Phase 1: Audio Spectrogram Waterfall</span> — Isolate ultrasonic subcarrier at 16,450 Hz with Q-factor 8.4 to decode Key Shard Alpha.
+                <span className="font-bold text-red-200">Phase 1: Audio Spectrogram Waterfall</span> — Demodulate the ultrasonic subcarrier hidden in the ambient audio spectrum to isolate Key Shard Alpha.
               </li>
               <li>
-                <span className="font-bold text-red-200">Phase 2: Stroboscopic Moiré Stego</span> — Align polar angle θ=137.5° (Golden Ratio), pitch 4.2px, and phase 88.0° to neutralize destructive optical interference and read Key Shard Beta.
+                <span className="font-bold text-red-200">Phase 2: Stroboscopic Moiré Steganography</span> — Tune the optical goniometer, grating pitch, and laser wavelength to neutralize destructive interference and reveal Key Shard Beta.
               </li>
               <li>
-                <span className="font-bold text-red-200">Phase 3: Volatile Memory Heap Carving</span> — Traverse volatile pointer from Node Alpha (0x7FA4B000) to Payload (0x7FA51800) and decrypt with XOR 0x5A to recover Key Shard Gamma.
+                <span className="font-bold text-red-200">Phase 3: Volatile Memory Heap Carving</span> — Disassemble volatile memory structures in PID 904, traverse the virtual pointer chain, and derive the cryptographic XOR mask for Key Shard Gamma.
               </li>
               <li>
-                <span className="font-bold text-red-200">Phase 4: Synaptic State Machine</span> — Route the bio-electric impulse through 16 cortex nodes [1 → 3 → 7 → 11 → 14 → 16] without tripping the 90 Ω impedance breaker to unlock Key Shard Delta.
+                <span className="font-bold text-red-200">Phase 4: Synaptic State Machine</span> — Route the bio-electric impulse through cortex nodes without tripping the maximum impedance threshold to unlock Key Shard Delta.
               </li>
               <li>
-                <span className="font-bold text-red-200">Phase 5: Subconscious Sentinel AI</span> — Calibrate EEG brainwave harmonics (Delta: 3Hz, Theta: 6Hz, Alpha: 10Hz, Beta: 22Hz, Dissonance: 42%) to communicate with Archon&apos;s cognitive persona.
+                <span className="font-bold text-red-200">Phase 5: Subconscious Sentinel AI</span> — Synchronize the biometric EEG oscillators to establish harmonic resonance with Archon&apos;s cognitive persona.
               </li>
             </ul>
           </div>

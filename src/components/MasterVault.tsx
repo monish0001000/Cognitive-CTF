@@ -15,7 +15,7 @@ export const MasterVault: React.FC<MasterVaultProps> = ({
   shards,
   onFlagVerified,
   isFlagCaptured,
-  capturedFlag = "FLAG{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}"
+  capturedFlag = "CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}"
 }) => {
   const [customFlagInput, setCustomFlagInput] = useState('');
   const [vaultStatus, setVaultStatus] = useState<string | null>(null);
@@ -36,7 +36,7 @@ export const MasterVault: React.FC<MasterVaultProps> = ({
           shard4: shards.find((s) => s.id === 'shard4')?.foundKey || ''
         };
 
-        const data = await verifyFlag("FLAG{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}", shardPayload);
+        const data = await verifyFlag("CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}", shardPayload);
 
         if (data.success && data.flag) {
           confetti({

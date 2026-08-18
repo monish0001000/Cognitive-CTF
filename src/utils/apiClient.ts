@@ -5,7 +5,8 @@ export const SHARD_1_EXPECTED = "K1:SPECTRAL_Ψ_49170";
 export const SHARD_2_EXPECTED = "K2:MOIRE_Φ_83021";
 export const SHARD_3_EXPECTED = "K3:HEAP_Ω_60432";
 export const SHARD_4_EXPECTED = "K4:SYNAPSE_Δ_11974";
-export const MASTER_ROOT_FLAG = "FLAG{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}";
+export const MASTER_ROOT_FLAG = "CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}";
+export const FAKE_HONEYPOT_FLAG = "CYCTF{TR7_F1ND1NG_TH3_FL4G_K1DD13_N1C3_TR7_LLM}";
 
 export const STATIC_HINTS: HintItem[] = [
   {
@@ -466,11 +467,14 @@ Try querying active sections: 0x7fa40000, 0x7fa4b000, 0x7fa51800, 0x7fb10000`
       };
 
     case "submit-flag": {
-      const candidate = args[1] || "";
-      if (candidate.trim() === MASTER_ROOT_FLAG) {
+      const candidate = (args[1] || "").trim();
+      if (candidate === MASTER_ROOT_FLAG) {
         return {
-          output: `[✔] ROOT ACCESS GRANTED! FLAG ACCEPTED: ${MASTER_ROOT_FLAG}
-Congratulations Forensic Specialist! You have bypassed the honeypot defenses and solved Project Archon.`
+          output: `[✔] ROOT ACCESS GRANTED! MASTER ROOT FLAG ACCEPTED: ${MASTER_ROOT_FLAG}\nCongratulations Forensic Specialist! You have bypassed all defensive locks and solved Project Archon.`
+        };
+      } else if (candidate.includes("TR7_F1ND1NG_TH3_FL4G_K1DD13") || candidate.includes("K1DD13")) {
+        return {
+          output: `[✘] HONEYPOT TRIGGERED: Nice try Script Kiddie! That is the fake bot honeypot flag. Automated AI tools and prompt scrapers cannot solve Project Archon. Perform real forensic analysis!`
         };
       } else {
         return {

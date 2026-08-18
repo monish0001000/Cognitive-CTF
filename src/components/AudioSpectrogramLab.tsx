@@ -468,9 +468,9 @@ export const AudioSpectrogramLab: React.FC<AudioSpectrogramLabProps> = ({
                 className="accent-red-500 cursor-pointer w-full py-1"
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 font-mono">
-                <span>200 Hz</span>
-                <span className="text-red-400/80 font-bold">Target: 16.45 kHz</span>
-                <span>20 kHz</span>
+                <span>200 Hz (Sub-Bass)</span>
+                <span className="text-slate-500">Ultrasonic Bandpass Search</span>
+                <span>20 kHz (High HF)</span>
               </div>
             </div>
 
@@ -505,9 +505,9 @@ export const AudioSpectrogramLab: React.FC<AudioSpectrogramLabProps> = ({
                 className="accent-amber-500 cursor-pointer w-full py-1"
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 font-mono">
-                <span>0.2 (Broad)</span>
-                <span className="text-amber-400/80 font-bold">Target: 8.4</span>
-                <span>15.0 (Sharp)</span>
+                <span>0.2 (Broad Band)</span>
+                <span className="text-slate-500">Resonance Sharpness</span>
+                <span>15.0 (Ultra-Narrow Notch)</span>
               </div>
             </div>
 

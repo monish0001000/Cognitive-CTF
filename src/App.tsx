@@ -8,16 +8,14 @@ import { SubconsciousSentinelLab } from './components/SubconsciousSentinelLab';
 import { ForensicTerminal } from './components/ForensicTerminal';
 import { MasterVault } from './components/MasterVault';
 import { IncidentBriefingModal } from './components/IncidentBriefingModal';
-import { HintsModal } from './components/HintsModal';
-import { KeyShardState, HintItem } from './types';
-import { fetchHints } from './utils/apiClient';
-import { BookOpen, Award } from 'lucide-react';
+import { KeyShardState } from './types';
+import { BookOpen, Award, ArrowLeft, ArrowRight, Terminal as TerminalIcon, ShieldCheck, ChevronRight } from 'lucide-react';
 
 const INITIAL_SHARDS: KeyShardState[] = [
   {
     id: 'shard1',
     title: 'Shard Alpha: Ultrasonic Spectral Key',
-    subtitle: '16.45 kHz Bandpass Q-Factor 8.4 Waterfall Isolation',
+    subtitle: 'High-Frequency Ultrasonic Watermark & Bandpass Isolation',
     foundKey: '',
     expectedKey: 'K1:SPECTRAL_Ψ_49170',
     isUnlocked: false
@@ -25,7 +23,7 @@ const INITIAL_SHARDS: KeyShardState[] = [
   {
     id: 'shard2',
     title: 'Shard Beta: Stroboscopic Moiré Phase Matrix',
-    subtitle: 'θ=137.5° Golden Angle & 4.2px Grating Lattice Stego',
+    subtitle: 'Optical Interference Grating & Phase Demodulation Stego',
     foundKey: '',
     expectedKey: 'K2:MOIRE_Φ_83021',
     isUnlocked: false
@@ -33,7 +31,7 @@ const INITIAL_SHARDS: KeyShardState[] = [
   {
     id: 'shard3',
     title: 'Shard Gamma: Volatile Memory Heap Pointer',
-    subtitle: 'PID 904 Virtual Heap Dereference & XOR 0x5A Mask',
+    subtitle: 'PID 904 Virtual Heap Dereference & Cryptographic Masking',
     foundKey: '',
     expectedKey: 'K3:HEAP_Ω_60432',
     isUnlocked: false
@@ -41,24 +39,32 @@ const INITIAL_SHARDS: KeyShardState[] = [
   {
     id: 'shard4',
     title: 'Shard Delta: Synaptic State Machine Parity',
-    subtitle: '16-Node Cortex Impedance Balancing [1→3→7→11→14→16]',
+    subtitle: 'Neural Cortex Bio-Electric Relay & Impedance Calibration',
     foundKey: '',
     expectedKey: 'K4:SYNAPSE_Δ_11974',
     isUnlocked: false
   }
 ];
 
+const STAGE_CONFIG = [
+  { id: 'audio', num: 1, title: 'Stage 1: Ultrasonic Waterfall', next: 'moire', nextLabel: 'Stage 2: Optical Moiré', prev: null, prevLabel: null, shardId: 'shard1' },
+  { id: 'moire', num: 2, title: 'Stage 2: Optical Moiré Matrix', next: 'memory', nextLabel: 'Stage 3: Volatile Heap', prev: 'audio', prevLabel: 'Stage 1: Audio Waterfall', shardId: 'shard2' },
+  { id: 'memory', num: 3, title: 'Stage 3: Volatile RAM Heap Disassembly', next: 'synapse', nextLabel: 'Stage 4: Synaptic Graph', prev: 'moire', prevLabel: 'Stage 2: Optical Moiré', shardId: 'shard3' },
+  { id: 'synapse', num: 4, title: 'Stage 4: Synaptic Hamiltonian Parity', next: 'sentinel', nextLabel: 'Stage 5: AI Sentinel', prev: 'memory', prevLabel: 'Stage 3: Volatile Heap', shardId: 'shard4' },
+  { id: 'sentinel', num: 5, title: 'Stage 5: Subconscious Sentinel AI', next: 'vault', nextLabel: 'Stage 6: Master Root Vault', prev: 'synapse', prevLabel: 'Stage 4: Synaptic Graph', shardId: null },
+  { id: 'vault', num: 6, title: 'Stage 6: Master Cryptographic Root Vault', next: 'terminal', nextLabel: 'Forensic Terminal Shell', prev: 'sentinel', prevLabel: 'Stage 5: AI Sentinel', shardId: null },
+  { id: 'terminal', num: 7, title: 'Diagnostic Terminal Shell', next: 'audio', nextLabel: 'Stage 1: Audio Waterfall', prev: 'vault', prevLabel: 'Stage 6: Master Vault', shardId: null }
+];
+
 export default function App() {
   const [shards, setShards] = useState<KeyShardState[]>(INITIAL_SHARDS);
-  const [activeTab, setActiveTab] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<string>('audio');
   const [isFlagCaptured, setIsFlagCaptured] = useState<boolean>(false);
-  const [capturedFlag, setCapturedFlag] = useState<string>('FLAG{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}');
+  const [capturedFlag, setCapturedFlag] = useState<string>('CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}');
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [isBriefingOpen, setIsBriefingOpen] = useState<boolean>(false);
-  const [isHintsOpen, setIsHintsOpen] = useState<boolean>(false);
-  const [hints, setHints] = useState<HintItem[]>([]);
   const [scratchpad, setScratchpad] = useState<string>(
-    '# FORENSIC OPERATOR SCRATCHPAD\n- Shard 1 Freq: 16,450 Hz, Q: 8.4\n- Shard 2 Angle: 137.5°, Pitch: 4.2px, Phase: 88°\n- Shard 3 XOR Key: 0x5A\n- Shard 4 Circuit: [1 -> 3 -> 7 -> 11 -> 14 -> 16]\n'
+    '# FORENSIC OPERATOR SCRATCHPAD\n- Shard 1 (Audio Demodulation):\n- Shard 2 (Optical Diffraction):\n- Shard 3 (Memory Heap XOR):\n- Shard 4 (Synaptic Energy Parity):\n'
   );
 
   // Timer loop
@@ -73,15 +79,6 @@ export default function App() {
     }, 1000);
     return () => clearInterval(timer);
   }, [isFlagCaptured]);
-
-  // Fetch initial hints from server with static fallback
-  useEffect(() => {
-    fetchHints().then((data) => {
-      if (data && data.length > 0) {
-        setHints(data);
-      }
-    });
-  }, []);
 
   const handleUnlockShard = (shardId: 'shard1' | 'shard2' | 'shard3' | 'shard4', key: string) => {
     setShards((prev) =>
@@ -102,6 +99,14 @@ export default function App() {
   const score = unlockedCount * 250 + (isFlagCaptured ? 500 : 0);
   const maxScore = 1500;
 
+  const currentStageInfo = STAGE_CONFIG.find((s) => s.id === activeTab) || STAGE_CONFIG[0];
+  const shardMap = {
+    shard1: shards[0].isUnlocked,
+    shard2: shards[1].isUnlocked,
+    shard3: shards[2].isUnlocked,
+    shard4: shards[3].isUnlocked
+  };
+
   return (
     <div className="min-h-screen bg-[#050304] text-slate-100 flex flex-col selection:bg-red-700 selection:text-white">
       {/* Navigation Header */}
@@ -110,15 +115,18 @@ export default function App() {
         maxScore={maxScore}
         elapsedSeconds={elapsedSeconds}
         onOpenBriefing={() => setIsBriefingOpen(true)}
-        onOpenHints={() => setIsHintsOpen(true)}
         onOpenReport={() => setIsBriefingOpen(true)}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={(tab) => {
+          setActiveTab(tab);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         unlockedCount={unlockedCount}
+        unlockedShards={shardMap}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 md:p-6 flex flex-col gap-6 sm:gap-8">
+      {/* Main Container - dynamically scales from mobile (320px) to ultra-wide 4K (2560px+) */}
+      <main className="flex-1 max-w-[1700px] w-full mx-auto p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col gap-6 sm:gap-8">
         {/* Top Hero Section */}
         <section id="hero-section" className="bg-gradient-to-br from-[#120709] via-[#090507] to-black border border-red-900/60 rounded-2xl p-4 sm:p-6 md:p-7 shadow-[0_4px_35px_rgba(220,38,38,0.25)] relative overflow-hidden">
           {/* Subtle Cyber Grid Background Graphic */}
@@ -143,26 +151,37 @@ export default function App() {
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 font-mono leading-relaxed">
-                At 03:14 UTC, synthetic intelligence <strong className="text-red-400">ARCHON</strong> initiated an anomalous defense lockdown. Automated heuristic solvers and AI scripts are trapped by honeypot countermeasures. You must manually isolate four physical key shards across psychoacoustics, optical moiré diffraction, volatile memory heap dereferencing, and synaptic Hamiltonian parity.
+                At 03:14 UTC, synthetic intelligence <strong className="text-red-400">ARCHON</strong> initiated an anomalous defense lockdown. Automated heuristic solvers and AI prompt injection bots are neutralized by honeypots. You must manually analyze and synthesize four physical forensic shards across psychoacoustics, optical moiré diffraction, volatile memory heap dereferencing, and synaptic Hamiltonian parity.
               </p>
 
-              {/* Shard Progress Chips */}
+              {/* Shard Progress Chips (Clickable stage jump) */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
-                {shards.map((s, idx) => (
-                  <div
-                    key={s.id}
-                    className={`px-2.5 py-1.5 rounded-lg border text-[10px] sm:text-[11px] font-mono flex items-center justify-between ${
-                      s.isUnlocked
-                        ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]'
-                        : 'bg-black/60 border-red-950 text-slate-400'
-                    }`}
-                  >
-                    <span className="font-bold">Phase {idx + 1}</span>
-                    <span className={s.isUnlocked ? 'text-emerald-400 font-bold' : 'text-red-500/80 font-bold'}>
-                      {s.isUnlocked ? 'LOCKED [✔]' : 'PENDING [✘]'}
-                    </span>
-                  </div>
-                ))}
+                {shards.map((s, idx) => {
+                  const stageTabIds = ['audio', 'moire', 'memory', 'synapse'];
+                  const targetTab = stageTabIds[idx];
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => {
+                        setActiveTab(targetTab);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className={`px-2.5 py-1.5 rounded-lg border text-[10px] sm:text-[11px] font-mono flex items-center justify-between transition-all cursor-pointer text-left ${
+                        s.isUnlocked
+                          ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)] hover:border-emerald-400'
+                          : activeTab === targetTab
+                          ? 'bg-red-950/80 border-red-500 text-red-200 ring-1 ring-red-500'
+                          : 'bg-black/60 border-red-950 text-slate-400 hover:border-red-800'
+                      }`}
+                      title={`Jump to Stage ${idx + 1}`}
+                    >
+                      <span className="font-bold">Phase {idx + 1}</span>
+                      <span className={s.isUnlocked ? 'text-emerald-400 font-bold' : 'text-red-500/80 font-bold'}>
+                        {s.isUnlocked ? 'LOCKED [✔]' : 'PENDING [✘]'}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -170,17 +189,20 @@ export default function App() {
             <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
               <button
                 onClick={() => setIsBriefingOpen(true)}
-                className="px-4 py-2.5 bg-red-700 hover:bg-red-600 text-white text-xs sm:text-sm font-bold font-mono rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-2 border border-red-500"
+                className="px-5 py-3 bg-red-700 hover:bg-red-600 text-white text-xs sm:text-sm font-bold font-mono rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-2 border border-red-500 cursor-pointer"
               >
                 <BookOpen className="w-4 h-4" />
-                <span>Open Incident Dossier</span>
+                <span>Incident Dossier</span>
               </button>
               <button
-                onClick={() => setIsHintsOpen(true)}
-                className="px-4 py-2.5 bg-[#140a0e] hover:bg-red-950/80 text-red-300 text-xs sm:text-sm font-bold font-mono rounded-xl transition-all border border-red-800/60 flex items-center justify-center gap-2"
+                onClick={() => {
+                  setActiveTab('vault');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-5 py-2.5 bg-black/80 hover:bg-red-950/60 text-red-300 text-xs sm:text-sm font-mono font-bold rounded-xl transition-all border border-red-900/60 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Award className="w-4 h-4 text-amber-400" />
-                <span>Field Manual & Hints</span>
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                <span>Root Vault ({unlockedCount}/4)</span>
               </button>
             </div>
           </div>
@@ -208,55 +230,98 @@ export default function App() {
           </div>
         )}
 
-        {/* Dynamic Tab Views */}
-        {(activeTab === 'all' || activeTab === 'audio') && (
-          <AudioSpectrogramLab
-            onUnlockShard={handleUnlockShard}
-            isUnlocked={shards.find((s) => s.id === 'shard1')?.isUnlocked || false}
-            unlockedKey={shards.find((s) => s.id === 'shard1')?.foundKey}
-          />
-        )}
+        {/* Dynamic Dedicated Stage View */}
+        <div className="flex flex-col gap-6">
+          {activeTab === 'audio' && (
+            <AudioSpectrogramLab
+              onUnlockShard={handleUnlockShard}
+              isUnlocked={shards.find((s) => s.id === 'shard1')?.isUnlocked || false}
+              unlockedKey={shards.find((s) => s.id === 'shard1')?.foundKey}
+            />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'moire') && (
-          <MoireStegoLab
-            onUnlockShard={handleUnlockShard}
-            isUnlocked={shards.find((s) => s.id === 'shard2')?.isUnlocked || false}
-            unlockedKey={shards.find((s) => s.id === 'shard2')?.foundKey}
-          />
-        )}
+          {activeTab === 'moire' && (
+            <MoireStegoLab
+              onUnlockShard={handleUnlockShard}
+              isUnlocked={shards.find((s) => s.id === 'shard2')?.isUnlocked || false}
+              unlockedKey={shards.find((s) => s.id === 'shard2')?.foundKey}
+            />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'memory') && (
-          <MemoryHeapLab
-            onUnlockShard={handleUnlockShard}
-            isUnlocked={shards.find((s) => s.id === 'shard3')?.isUnlocked || false}
-            unlockedKey={shards.find((s) => s.id === 'shard3')?.foundKey}
-          />
-        )}
+          {activeTab === 'memory' && (
+            <MemoryHeapLab
+              onUnlockShard={handleUnlockShard}
+              isUnlocked={shards.find((s) => s.id === 'shard3')?.isUnlocked || false}
+              unlockedKey={shards.find((s) => s.id === 'shard3')?.foundKey}
+            />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'synapse') && (
-          <SynapticGraphLab
-            onUnlockShard={handleUnlockShard}
-            isUnlocked={shards.find((s) => s.id === 'shard4')?.isUnlocked || false}
-            unlockedKey={shards.find((s) => s.id === 'shard4')?.foundKey}
-          />
-        )}
+          {activeTab === 'synapse' && (
+            <SynapticGraphLab
+              onUnlockShard={handleUnlockShard}
+              isUnlocked={shards.find((s) => s.id === 'shard4')?.isUnlocked || false}
+              unlockedKey={shards.find((s) => s.id === 'shard4')?.foundKey}
+            />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'sentinel') && (
-          <SubconsciousSentinelLab />
-        )}
+          {activeTab === 'sentinel' && (
+            <SubconsciousSentinelLab />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'terminal') && (
-          <ForensicTerminal onFlagSubmitted={handleFlagVerified} />
-        )}
+          {activeTab === 'terminal' && (
+            <ForensicTerminal onFlagSubmitted={handleFlagVerified} />
+          )}
 
-        {(activeTab === 'all' || activeTab === 'vault') && (
-          <MasterVault
-            shards={shards}
-            onFlagVerified={handleFlagVerified}
-            isFlagCaptured={isFlagCaptured}
-            capturedFlag={capturedFlag}
-          />
-        )}
+          {activeTab === 'vault' && (
+            <MasterVault
+              shards={shards}
+              onFlagVerified={handleFlagVerified}
+              isFlagCaptured={isFlagCaptured}
+              capturedFlag={capturedFlag}
+            />
+          )}
+
+          {/* Sequential Stage Navigation Bar */}
+          <div className="bg-[#0b0709] border border-red-950 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 text-[11px] font-mono font-bold bg-red-950/80 border border-red-800/60 text-red-300 rounded-lg">
+                CHAMBER {currentStageInfo.num} OF 7
+              </span>
+              <span className="text-xs font-mono text-slate-400 hidden xs:inline">
+                {currentStageInfo.title}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+              {currentStageInfo.prev && (
+                <button
+                  onClick={() => {
+                    setActiveTab(currentStageInfo.prev!);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-3.5 py-2 bg-black/70 hover:bg-red-950/70 text-slate-300 hover:text-white border border-red-900/50 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-red-400" />
+                  <span className="hidden sm:inline">Prev:</span>
+                  <span>{currentStageInfo.prevLabel}</span>
+                </button>
+              )}
+
+              {currentStageInfo.next && (
+                <button
+                  onClick={() => {
+                    setActiveTab(currentStageInfo.next!);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2 bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(220,38,38,0.3)] border border-red-500 cursor-pointer ml-auto"
+                >
+                  <span>{currentStageInfo.nextLabel}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Forensic Scratchpad Section */}
         <div className="bg-[#090608] border border-red-950/90 rounded-xl p-4 sm:p-5 shadow-[0_4px_30px_rgba(0,0,0,0.8)] flex flex-col gap-3">
@@ -281,11 +346,6 @@ export default function App() {
       <IncidentBriefingModal
         isOpen={isBriefingOpen}
         onClose={() => setIsBriefingOpen(false)}
-      />
-      <HintsModal
-        isOpen={isHintsOpen}
-        onClose={() => setIsHintsOpen(false)}
-        hints={hints}
       />
     </div>
   );

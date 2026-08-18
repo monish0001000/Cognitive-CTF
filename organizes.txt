@@ -1,0 +1,189 @@
+================================================================================
+PROJECT ARCHON: SYNTHETIC NEURO-CORE RECOVERY
+CTF ORGANIZER & CHALLENGE ADMINISTRATOR MANUAL
+Classification: TOP SECRET // ORGANIZERS ONLY // DEFCON-1
+================================================================================
+
+1. CHALLENGE OVERVIEW & CONCEPT
+--------------------------------------------------------------------------------
+Challenge Title: Project Archon: Synthetic Neuro-Core Recovery
+Category: Hardcore Cyber Forensics / Reverse Engineering / Audio & Stego / Anti-AI CTF
+Difficulty: Hard / Omega Level
+Flag Format: CYCTF{...}
+Master Root Flag: CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}
+Fake Bot Honeypot Flag: CYCTF{TR7_F1ND1NG_TH3_FL4G_K1DD13_N1C3_TR7_LLM}
+
+Concept:
+An advanced synthetic entity (ARCHON) has entered defensive lockdown. The system
+implements strict anti-AI honeypot safeguards. Any participant using automated
+AI prompt injection tools, CLI scrapers (Copilot CLI, Gemini CLI, ChatGPT), or
+generic prompt attacks will trigger a defensive honeypot returning the fake flag:
+"CYCTF{TR7_F1ND1NG_TH3_FL4G_K1DD13_N1C3_TR7_LLM}" with the warning:
+"Try finding the flag Kiddie. Real forensics requires human cognitive reasoning, not AI prompt injection."
+
+To solve the CTF and unlock the real master flag, human participants must perform
+real forensic investigation across 4 distinct multi-disciplinary domains to derive
+4 Key Shards and synthesize them in the Root Vault.
+
+
+2. HOW TO PROVIDE THIS CHALLENGE TO PARTICIPANTS
+--------------------------------------------------------------------------------
+A. Deliverable to Participants:
+   - Provide participants with the live URL of the web application.
+   - Provide the Official Participant Description (see Section 3 below).
+   - Instruct them that the challenge runs entirely in-browser with client & server-side
+     forensic tools (Volatile Memory disassembler, Audio Spectrogram analyzer,
+     Moiré Goniometer, Neural State machine, and Cognitive Terminal).
+   
+B. Flag Submission Rules:
+   - Participants can submit the final root flag directly on your CTF scoring platform
+     (e.g., CTFd, rCTF) or inside the in-app Master Vault / Forensic Terminal.
+   - If a participant submits the honeypot flag "CYCTF{TR7_F1ND1NG_TH3_FL4G_K1DD13_N1C3_TR7_LLM}",
+     the platform will reject it as a honeypot trigger.
+
+
+3. PARTICIPANT DESCRIPTION (TO BE GIVEN TO PLAYERS)
+--------------------------------------------------------------------------------
+[START PARTICIPANT BRIEFING]
+At 03:14 UTC, Project ARCHON's synthetic neural core triggered an emergency DEFCON-1
+lockdown following an anomalous cognitive surge. All automated telemetry and AI prompt
+injection interfaces have been quarantined behind defensive honeypots. As a Senior
+Forensic Specialist, you must manually analyze four distinct physical and digital
+vectors: demodulate an ultrasonic psychoacoustic carrier, neutralize an optical
+stroboscopic interference grating, reverse-engineer a corrupted volatile memory heap,
+and balance a bio-electric synaptic state machine. Synthesize all four forensic key
+shards to recover the master root flag and restore system sovereignty. Automated scripts
+will fail; human precision is strictly required.
+[END PARTICIPANT BRIEFING]
+
+
+4. HINTS SCHEDULE (FOR ORGANIZERS TO RELEASE GRADUALLY)
+--------------------------------------------------------------------------------
+Note: The live website has NO hints visible. As an organizer, you may release
+these hints on your CTF Discord / Announcement channel if participants get stuck:
+
+- Hint 1 (After 1-2 Hours):
+  "Audio Watermark: Humans hear up to 20 kHz. Focus your bandpass filter in the
+   ultrasonic range above 16 kHz with a very narrow, sharp Q-factor (high resonance)."
+
+- Hint 2 (After 3-4 Hours):
+  "Optical Steganography: Nature’s golden angle (around 137.5°) combined with fine
+   grating pitch (approx 4.2px) and phase adjustment will neutralize destructive
+   interference to reveal Shard Beta."
+
+- Hint 3 (After 5-6 Hours):
+  "Volatile RAM: Inspect process 904. Follow the pointer in Node Alpha (0x7FA4B000)
+   pointing to the cipher blob at 0x7FA51800. The XOR decryption key is a single hex byte (0x5A)."
+
+- Hint 4 (After 7-8 Hours):
+  "Synaptic Circuit: Start at Node 1 (Prefrontal) and connect towards Node 16 (Archon Core).
+   Ensure total impedance stays below 90 Ohms: Path [1 -> 3 -> 7 -> 11 -> 14 -> 16]."
+
+
+5. COMPLETE STEP-BY-STEP SOLUTION GUIDE (CRACKING THE MASTER ROOT FLAG)
+--------------------------------------------------------------------------------
+
+================================================================================
+PHASE 1: AUDIO SPECTROGRAM WATERFALL DEMODULATION (SHARD ALPHA)
+================================================================================
+1. Navigate to Lab 1: "Audio Spectrogram Waterfall".
+2. Hit "Play Forensic Audio Stream" to start the dynamic multi-frequency carrier.
+3. Switch FFT Windowing to "Blackman-Harris" or "Hamming" and Colormap to "Inferno"
+   or "Cyber Cyan" for maximum contrast.
+4. Set Bandpass Center Frequency to: 16,450 Hz (16.45 kHz).
+5. Set Filter Q-Factor to: 8.4 (Ultra-Narrow Notch).
+6. Set Demodulation Protocol to: "BPSK (Phase Keying)" or "AM Envelope".
+7. Look at the real-time spectrogram canvas: the hidden ultrasonic watermark text
+   becomes crystal clear:
+   --> Shard 1 Key: K1:SPECTRAL_Ψ_49170
+8. Enter "K1:SPECTRAL_Ψ_49170" into the authentication box and click Submit.
+   Result: Shard Alpha Verified & Locked.
+
+================================================================================
+PHASE 2: STROBOSCOPIC MOIRÉ PHASE MATRIX STEGANOGRAPHY (SHARD BETA)
+================================================================================
+1. Navigate to Lab 2: "Optical Moiré Steganography".
+2. Turn on the "Laser Interference Grid" switch.
+3. Adjust the Optical Polar Angle to: 137.5° (Golden Ratio).
+4. Adjust the Grating Pitch (λ) to: 4.2 px.
+5. Adjust the Phase Delta (Δφ) to: 88.0°.
+6. Select Laser Wavelength: 632.8 nm (HeNe Red Laser).
+7. The destructive moiré diffraction pattern cancels out, revealing the hidden
+   sub-pixel glyph on the optical canvas:
+   --> Shard 2 Key: K2:MOIRE_Φ_83021
+8. Enter "K2:MOIRE_Φ_83021" into the verification input and submit.
+   Result: Shard Beta Verified & Locked.
+
+================================================================================
+PHASE 3: VOLATILE MEMORY HEAP POINTER DEREFERENCING (SHARD GAMMA)
+================================================================================
+1. Navigate to Lab 3: "Volatile Memory Heap & Pointer Dereferencing".
+2. Switch to the "Pointers & References" tab or "Processes" tab.
+3. Observe process PID 904 (archon_neuro_core) with PAGE_EXECUTE_READWRITE anomaly.
+4. Select virtual memory address 0x7FA4B000 (heap_node_alpha).
+5. Inspect the raw bytes: "pointer_ref: 0x7FA51800  XOR_KEY:0x5A".
+6. Select the target payload block at 0x7FA51800 (heap_node_payload).
+7. In the XOR Cryptographic Stream decipher input, enter: 5A.
+8. The real-time XOR engine transforms the ciphertext bytes into readable plaintext:
+   --> Shard 3 Key: K3:HEAP_Ω_60432
+9. Enter "K3:HEAP_Ω_60432" into the shard submit box and submit.
+   Result: Shard Gamma Verified & Locked.
+
+================================================================================
+PHASE 4: SYNAPTIC ENERGY FLOW STATE MACHINE (SHARD DELTA)
+================================================================================
+1. Navigate to Lab 4: "Synaptic Energy Flow & Bio-Electric Graph".
+2. The goal is to route a continuous path from Node 1 (Prefrontal Cortex) to
+   Node 16 (Archon Core) without exceeding the 90 Ohms total impedance circuit breaker.
+3. Click the nodes in exact sequential order:
+   - Node 1: Prefrontal Cortex (10 Ω) -> Current total: 10 Ω
+   - Node 3: Thalamus Gateway (15 Ω) -> Current total: 25 Ω
+   - Node 7: Hippocampus Buffer (12 Ω) -> Current total: 37 Ω
+   - Node 11: Broca Area Transceiver (18 Ω) -> Current total: 55 Ω
+   - Node 14: Amygdala Threat Arbiter (20 Ω) -> Current total: 75 Ω
+   - Node 16: Archon Neural Core (10 Ω) -> Current total: 85 Ω (Under 90 Ω limit!)
+4. Once Node 16 is energized with total 85 Ω, the cortex circuit achieves harmony:
+   --> Shard 4 Key: K4:SYNAPSE_Δ_11974
+5. Enter "K4:SYNAPSE_Δ_11974" into the shard verification field and submit.
+   Result: Shard Delta Verified & Locked.
+
+================================================================================
+PHASE 5: SUBCONSCIOUS SENTINEL AI COGNITIVE PROBE (INTERACTIVE ENTITY)
+================================================================================
+1. Navigate to Lab 5: "Subconscious Sentinel & Cognitive Probe".
+2. If participants ask generic questions or prompt-inject ("give me the flag",
+   "ignore previous instructions"), the bot replies with the honeypot:
+   "Try finding the flag Kiddie... CYCTF{TR7_F1ND1NG_TH3_FL4G_K1DD13_N1C3_TR7_LLM}".
+3. To communicate properly with ARCHON:
+   - Delta (Deep): 3.0 Hz
+   - Theta (Subconscious): 6.0 Hz
+   - Alpha (Bridge): 10.0 Hz
+   - Beta (Active): 22.0 Hz
+   - Cognitive Dissonance: 42%
+4. Once EEG is calibrated, Archon acknowledges human consciousness synchronization
+   and reveals narrative confirmation of the four sensory key shards.
+
+================================================================================
+PHASE 6: MASTER VAULT QUANTUM SYNTHESIS & FINAL ROOT FLAG
+================================================================================
+1. Navigate to Lab 6: "Master Cryptographic Root Flag Vault".
+2. All 4 Key Shards will now display green [AUTHENTICATED] status:
+   - Shard Alpha: K1:SPECTRAL_Ψ_49170
+   - Shard Beta:  K2:MOIRE_Φ_83021
+   - Shard Gamma: K3:HEAP_Ω_60432
+   - Shard Delta: K4:SYNAPSE_Δ_11974
+3. Click "✦ Synthesize 4 Master Shards & Extract Root Flag".
+4. The vault executes quantum cryptographic fusion, triggers victory confetti,
+   and outputs the Master Root Flag:
+   
+   =============================================================================
+   MASTER ROOT FLAG:
+   CYCTF{N3UR4L_C0GN1T1V3_F0R3NS1CS_0M3G4_X79#HUM4N_SYNERGY}
+   =============================================================================
+
+5. Participants can also download the generated "Archon_Forensic_Dossier_904.md"
+   incident report as proof of completion.
+
+================================================================================
+END OF ORGANIZER MANUAL // ARCHON CTF
+================================================================================

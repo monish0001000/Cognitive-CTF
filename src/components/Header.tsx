@@ -6,11 +6,11 @@ interface HeaderProps {
   maxScore: number;
   elapsedSeconds: number;
   onOpenBriefing: () => void;
-  onOpenHints: () => void;
-  onOpenReport: () => void;
+  onOpenReport?: () => void;
   activeTab: string;
   onTabChange: (tab: string) => void;
   unlockedCount: number;
+  unlockedShards?: Record<string, boolean>;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,10 +18,10 @@ export const Header: React.FC<HeaderProps> = ({
   maxScore,
   elapsedSeconds,
   onOpenBriefing,
-  onOpenHints,
   activeTab,
   onTabChange,
-  unlockedCount
+  unlockedCount,
+  unlockedShards = {}
 }) => {
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
@@ -30,19 +30,18 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const navTabs = [
-    { id: 'all', label: 'All Labs', short: 'All' },
-    { id: 'audio', label: '1. Audio Waterfall', short: '1. Audio' },
-    { id: 'moire', label: '2. Optical Moiré', short: '2. Moiré' },
-    { id: 'memory', label: '3. Volatile Heap', short: '3. Heap' },
-    { id: 'synapse', label: '4. Synaptic Graph', short: '4. Synapse' },
-    { id: 'sentinel', label: '5. AI Sentinel', short: '5. Sentinel' },
-    { id: 'terminal', label: 'Forensic Terminal', short: 'Terminal' },
-    { id: 'vault', label: '6. Master Vault', short: '6. Vault' }
+    { id: 'audio', stage: '1', label: 'Stage 1: Audio Waterfall', short: 'S1: Audio', shardKey: 'shard1' },
+    { id: 'moire', stage: '2', label: 'Stage 2: Optical Moiré', short: 'S2: Moiré', shardKey: 'shard2' },
+    { id: 'memory', stage: '3', label: 'Stage 3: Volatile Heap', short: 'S3: Heap', shardKey: 'shard3' },
+    { id: 'synapse', stage: '4', label: 'Stage 4: Synaptic Graph', short: 'S4: Synapse', shardKey: 'shard4' },
+    { id: 'sentinel', stage: '5', label: 'Stage 5: AI Sentinel', short: 'S5: Sentinel' },
+    { id: 'vault', stage: '6', label: 'Stage 6: Master Vault', short: 'S6: Vault' },
+    { id: 'terminal', stage: 'CLI', label: 'Forensic Terminal', short: 'Terminal' }
   ];
 
   return (
-    <header className="bg-[#050508]/95 border-b border-red-950/80 sticky top-0 z-40 backdrop-blur-md px-2.5 sm:px-4 md:px-6 py-2.5 sm:py-3 shadow-[0_4px_25px_rgba(220,38,38,0.15)]">
-      <div className="max-w-7xl mx-auto flex flex-col gap-2.5">
+    <header className="bg-[#050508]/95 border-b border-red-950/80 sticky top-0 z-40 backdrop-blur-md px-2.5 sm:px-4 md:px-6 lg:px-8 py-2.5 sm:py-3 shadow-[0_4px_25px_rgba(220,38,38,0.15)]">
+      <div className="max-w-[1700px] mx-auto flex flex-col gap-2.5">
         {/* Top Row: Brand + Telemetry + Action Buttons */}
         <div className="flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo and Brand */}
@@ -71,21 +70,12 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Quick Mobile Action Buttons */}
             <button
               onClick={onOpenBriefing}
-              className="flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-red-950/80 hover:bg-red-900/90 border border-red-700/60 text-red-200 rounded-lg text-[11px] sm:text-xs font-mono transition-all shadow-[0_0_10px_rgba(220,38,38,0.2)]"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 bg-red-950/80 hover:bg-red-900/90 border border-red-700/60 text-red-200 rounded-lg text-[11px] sm:text-xs font-mono transition-all shadow-[0_0_10px_rgba(220,38,38,0.2)]"
               title="Incident Dossier"
             >
               <FileText className="w-3.5 h-3.5 text-red-400" />
               <span className="hidden md:inline">Incident Dossier</span>
               <span className="md:hidden">Dossier</span>
-            </button>
-            <button
-              onClick={onOpenHints}
-              className="flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-[#12080a] hover:bg-red-950/90 border border-red-800/60 text-red-300 rounded-lg text-[11px] sm:text-xs font-mono transition-all"
-              title="Field Manual"
-            >
-              <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden md:inline">Field Manual</span>
-              <span className="md:hidden">Hints</span>
             </button>
           </div>
         </div>
@@ -119,22 +109,30 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Third Row: Main Navigation Tabs (Touch-scrollable, responsive labels) */}
-        <div className="pt-1.5 border-t border-red-950/60 flex items-center gap-1 sm:gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
-          {navTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-mono whitespace-nowrap transition-all select-none shrink-0 ${
-                activeTab === tab.id
-                  ? 'bg-gradient-to-r from-red-700 to-red-600 text-white font-bold shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-500'
-                  : 'text-slate-400 hover:text-red-300 bg-[#0c080b] hover:bg-red-950/40 border border-transparent hover:border-red-900/40'
-              }`}
-            >
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.short}</span>
-            </button>
-          ))}
+        {/* Third Row: Main Navigation Tabs (Touch-scrollable, responsive labels, hidden scrollbar) */}
+        <div className="pt-1.5 border-t border-red-950/60 flex items-center gap-1 sm:gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {navTabs.map((tab) => {
+            const isTabUnlocked = tab.shardKey ? unlockedShards[tab.shardKey] : false;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => onTabChange(tab.id)}
+                className={`px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono whitespace-nowrap transition-all select-none shrink-0 flex items-center gap-1.5 ${
+                  activeTab === tab.id
+                    ? 'bg-gradient-to-r from-red-700 to-red-600 text-white font-bold shadow-[0_0_12px_rgba(220,38,38,0.4)] border border-red-500'
+                    : 'text-slate-400 hover:text-red-300 bg-[#0c080b] hover:bg-red-950/40 border border-transparent hover:border-red-900/40'
+                }`}
+              >
+                {isTabUnlocked ? (
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)] shrink-0" />
+                ) : (
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-900/80 shrink-0" />
+                )}
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden">{tab.short}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </header>

@@ -35,7 +35,7 @@ export const MemoryHeapLab: React.FC<MemoryHeapLabProps> = ({
   unlockedKey = "K3:HEAP_Ω_60432"
 }) => {
   const [selectedAddr, setSelectedAddr] = useState('0x7FA4B000');
-  const [xorKeyHex, setXorKeyHex] = useState('5A');
+  const [xorKeyHex, setXorKeyHex] = useState('00');
   const [inputKey, setInputKey] = useState('');
   const [keyStatus, setKeyStatus] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'hexdump' | 'vad' | 'pointers' | 'disasm' | 'processes'>('hexdump');
@@ -88,7 +88,7 @@ export const MemoryHeapLab: React.FC<MemoryHeapLabProps> = ({
             </h2>
           </div>
           <p className="text-[11px] sm:text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed font-mono">
-            Inspect process 904 (<code className="text-red-400 font-bold">archon_neuro_core</code>) in volatile RAM. Traverse the heap pointer link from Node Alpha (<code className="text-red-400 font-bold">0x7FA4B000</code>) to Payload (<code className="text-red-400 font-bold">0x7FA51800</code>) and apply XOR key <code className="text-red-400 font-bold">0x5A</code>.
+            Inspect process 904 (<code className="text-red-400 font-bold">archon_neuro_core</code>) in volatile RAM. Traverse the virtual heap descriptors, trace the pointer references to find the encrypted payload block, and deduce the cryptographic XOR mask.
           </p>
         </div>
 
