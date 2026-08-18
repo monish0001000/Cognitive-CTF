@@ -22,10 +22,17 @@ Type 'help' to inspect available forensic plugins.`,
   const [inputVal, setInputVal] = useState('');
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const logContainerRef = useRef<HTMLDivElement | null>(null);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    if (logContainerRef.current) {
+      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
+    }
   }, [logs]);
 
   const handleRunCommand = async (e: React.FormEvent) => {
@@ -142,7 +149,10 @@ Type 'help' to inspect available forensic plugins.`,
       </div>
 
       {/* Terminal Log Area */}
-      <div className="h-56 sm:h-64 md:h-72 overflow-y-auto space-y-2.5 sm:space-y-3 select-text pr-1 sm:pr-2 leading-relaxed scrollbar-thin text-[11px] sm:text-xs">
+      <div
+        ref={logContainerRef}
+        className="h-56 sm:h-64 md:h-72 overflow-y-auto space-y-2.5 sm:space-y-3 select-text pr-1 sm:pr-2 leading-relaxed scrollbar-thin text-[11px] sm:text-xs"
+      >
         {logs.map((log) => (
           <div key={log.id} className="space-y-1">
             <div className="flex items-center gap-1.5 sm:gap-2 text-red-400 font-semibold flex-wrap">
@@ -155,7 +165,6 @@ Type 'help' to inspect available forensic plugins.`,
             </pre>
           </div>
         ))}
-        <div ref={bottomRef} />
       </div>
 
       {/* Terminal Input Line */}

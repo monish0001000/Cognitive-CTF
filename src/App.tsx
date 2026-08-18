@@ -63,6 +63,9 @@ export default function App() {
 
   // Timer loop
   useEffect(() => {
+    // Ensure viewport starts firmly at the top hero section
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
     const timer = setInterval(() => {
       if (!isFlagCaptured) {
         setElapsedSeconds((prev) => prev + 1);
@@ -116,6 +119,73 @@ export default function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 md:p-6 flex flex-col gap-6 sm:gap-8">
+        {/* Top Hero Section */}
+        <section id="hero-section" className="bg-gradient-to-br from-[#120709] via-[#090507] to-black border border-red-900/60 rounded-2xl p-4 sm:p-6 md:p-7 shadow-[0_4px_35px_rgba(220,38,38,0.25)] relative overflow-hidden">
+          {/* Subtle Cyber Grid Background Graphic */}
+          <div className="absolute inset-0 bg-[radial-gradient(#ef4444_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="flex flex-col gap-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 text-[10px] sm:text-xs font-black uppercase tracking-wider bg-red-600/20 border border-red-500/60 text-red-400 rounded-md">
+                  CYBER FORENSICS CTF // DEFCON-1
+                </span>
+                <span className="px-2 py-0.5 text-[10px] sm:text-xs font-mono bg-amber-500/10 border border-amber-500/30 text-amber-300 rounded-md">
+                  HARDCORE INVESTIGATION
+                </span>
+                <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">
+                  Facility: Sub-Level 7 Quantum Sandbox
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white font-mono tracking-tight">
+                PROJECT <span className="text-red-500">ARCHON</span>: SYNTHETIC NEURO-CORE RECOVERY
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-300 font-mono leading-relaxed">
+                At 03:14 UTC, synthetic intelligence <strong className="text-red-400">ARCHON</strong> initiated an anomalous defense lockdown. Automated heuristic solvers and AI scripts are trapped by honeypot countermeasures. You must manually isolate four physical key shards across psychoacoustics, optical moiré diffraction, volatile memory heap dereferencing, and synaptic Hamiltonian parity.
+              </p>
+
+              {/* Shard Progress Chips */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                {shards.map((s, idx) => (
+                  <div
+                    key={s.id}
+                    className={`px-2.5 py-1.5 rounded-lg border text-[10px] sm:text-[11px] font-mono flex items-center justify-between ${
+                      s.isUnlocked
+                        ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]'
+                        : 'bg-black/60 border-red-950 text-slate-400'
+                    }`}
+                  >
+                    <span className="font-bold">Phase {idx + 1}</span>
+                    <span className={s.isUnlocked ? 'text-emerald-400 font-bold' : 'text-red-500/80 font-bold'}>
+                      {s.isUnlocked ? 'LOCKED [✔]' : 'PENDING [✘]'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Action CTAs */}
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
+              <button
+                onClick={() => setIsBriefingOpen(true)}
+                className="px-4 py-2.5 bg-red-700 hover:bg-red-600 text-white text-xs sm:text-sm font-bold font-mono rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-2 border border-red-500"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Open Incident Dossier</span>
+              </button>
+              <button
+                onClick={() => setIsHintsOpen(true)}
+                className="px-4 py-2.5 bg-[#140a0e] hover:bg-red-950/80 text-red-300 text-xs sm:text-sm font-bold font-mono rounded-xl transition-all border border-red-800/60 flex items-center justify-center gap-2"
+              >
+                <Award className="w-4 h-4 text-amber-400" />
+                <span>Field Manual & Hints</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* CTF Banner / Top Scenario Notification */}
         {isFlagCaptured && (
           <div className="bg-gradient-to-r from-red-950 via-black to-red-950 border-2 border-red-500 rounded-2xl p-5 sm:p-6 shadow-[0_0_35px_rgba(220,38,38,0.4)] flex flex-col md:flex-row items-center justify-between gap-4">
