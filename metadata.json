@@ -1,0 +1,6 @@
+{
+  "name": "Cognitive Forensics Lab",
+  "description": "An ultra-hard cognitive forensics CTF challenge requiring multi-layered human intervention, audio spectral forensics, optical moiré steganography, neural memory heap carving, and state-machine bypass.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
